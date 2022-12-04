@@ -1,5 +1,5 @@
 <?php
-    require 'config.php';
+    require './database/config.php';
 
     session_start();
 
@@ -9,17 +9,32 @@
 
     if (isset($_POST['submit'])) {
         $email = htmlspecialchars($_POST['email']);
-        $password = htmlspecialchars(md5($_POST['password']));
+        $password = htmlspecialchars($_POST['password']);
 
-        $sql = "SELECT * FROM  users WHERE email = '$email' AND password = '$password' ";
-        $result = mysqli_query($conn, $sql);
-
-        if ($result->num_rows > 0) {
-            $row = mysqli_fetch_assoc($result);
-            $_SESSION['username'] = $row['name'];
-            header("Location: welcome/");
+        if (empty ($_POST['email'])) {
+            $alertemail = 'Veuillez remplir ce champ';
+        } elseif (empty ($_POST['password'])) {
+            $alertpassword = 'Veuillez remplir ce champ';
         } else {
-            $errormsg = 'Woops! Email or Password is Wrong.';
+            if (!preg_match("/^[a-z]+\.[a-z-1-9]+@uvs.edu.sn/i",$email)) {
+                $alertemailformat = "Format e-mail invalidé";
+            } else {
+                $sql = "SELECT * FROM  users WHERE email = '$email' ";
+                $result = mysqli_query($conn, $sql);
+                
+                if ($result->num_rows > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        if ($password = password_verify($password, $row['password'])) {
+                            $_SESSION['username'] = $row['name'];
+                            header("Location: welcome/");
+                        } else {
+                            $errormsg = 'Woops! Email or Password is Wrong.';
+                        }
+                    }
+                } else {
+                    $errormsg = 'Woops! Email or Password is Wrong.';
+                }
+            }
         }
     }
 ?>

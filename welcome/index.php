@@ -3,13 +3,13 @@
 session_start();
 
 if (!isset($_SESSION['username'])) {
-    header("Location: http://localhost/login_form_uvs/");
+    header("Location: index.php");
 }
 
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 
 <head>
   <title>Welcome</title>
@@ -18,8 +18,7 @@ if (!isset($_SESSION['username'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS v5.2.1 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -28,20 +27,16 @@ if (!isset($_SESSION['username'])) {
   </header>
   <main>
     <div class="container my-5">
-        <?php echo "<h1>Welcome " . $_SESSION['username'] . "</h1>"; ?>
-        <a href="../logout/">Logout</a>
+        <?php echo "<h1>Bienvenue " . $_SESSION['username'] . "</h1>"; ?>
+        <a href="../logout/">Se déconnecter</a>
     </div>
   </main>
   <footer>
     <!-- place footer here -->
   </footer>
   <!-- Bootstrap JavaScript Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
-  </script>
+  <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-
-  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
